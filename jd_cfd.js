@@ -28,7 +28,7 @@ function randomString(e) {
 $.InviteList = []
 $.innerInviteList = [];
 const HelpAuthorFlag = true;//是否助力作者SH  true 助力，false 不助力
-
+const buildFlag = true;//是否执行建筑升级 true 升级，false 手动
 // 热气球接客 每次运行接客次数
 let serviceNum = 25;// 每次运行接客次数
 if ($.isNode() && process.env.gua_wealth_island_serviceNum) {
@@ -82,7 +82,7 @@ $.appId = 10032;
         "D581C63D5041BD6E4329DBEEDC60CA153566BC76B004FFBE32E6C61EBBCB1243"
     ]
     if(HelpAuthorFlag){
-        InviteLists.push(...$.AuthoLists);
+        $.InviteLists.push(...$.AuthoLists);
     }
     $.InviteLists.push(...$.InviteList);
     for (let i = 0; i < cookiesArr.length; i++) {
@@ -141,7 +141,9 @@ async function run() {
         // 故事会
         await StoryInfo()
         // 建筑升级
-        await buildList()
+        if(buildFlag){
+            await buildList()
+        }
         // 签到 邀请奖励
         await sign()
         // 捡垃圾
